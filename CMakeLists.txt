@@ -18,6 +18,6 @@ target_include_directories(vision_lib INTERFACE include)
 target_link_libraries(vision_lib INTERFACE ${OpenCV_LIBS})
 
 
-add_executable(main src/main.cpp)
+add_executable(main src/main.cpp src/data-generation/datagen.cpp)
 
 target_link_libraries(main PRIVATE vision_lib ${OpenCV_LIBS})
