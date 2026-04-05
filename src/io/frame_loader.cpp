@@ -28,6 +28,17 @@ namespace io {
 		return cv::imread(m_frame_paths[index], cv::IMREAD_COLOR);
 	}
 
+	[[nodiscard]] std::vector<cv::Mat> FrameLoader::get_frames() const {
+		std::vector<cv::Mat> frames;
+		frames.reserve(count());
+
+		for (size_t i = 0; i < count(); i++) {
+			frames.emplace_back(cv::imread(m_frame_paths[i], cv::IMREAD_COLOR));
+		}
+
+		return frames;
+	}
+
 	[[nodiscard]] size_t FrameLoader::count() const {
 		return m_frame_paths.size();
 	}

@@ -24,6 +24,10 @@ namespace io {
 		/// @return A cv::Mat representing the image frame.
 		[[nodiscard]] cv::Mat get_frame(size_t index) const;
 
+		/// @brief Retrieves all frames.
+		/// @return A vector of cv::Mat representing the image frames.
+		[[nodiscard]] std::vector<cv::Mat> get_frames() const;
+
 		/// @brief Returns the total number of frames loaded.
 		/// @return The count of available frames.
 		[[nodiscard]] size_t count() const;
