@@ -4,12 +4,6 @@
 
 namespace analysis {
 	namespace detect {
-		/// @brief Represents a detected blob with its center coordinates and size.
-		struct DetectedBlob {
-			cv::Point2f center;
-			float size;
-		};
-
 		/// @brief A class for detecting blobs in an image using OpenCV's SimpleBlobDetector.
 		class BlobDetector {
 		  private:
@@ -21,9 +15,12 @@ namespace analysis {
 			/// @brief Detects blobs in a given processed frame.
 			/// @param processed_frame The input image frame, typically pre-processed.
 			/// grayscale, thresholded, ...
-			/// @return A vector of DetectedBlob objects, each containing the center and size of a
+			/// @return A vector of KeyPoint objects, each containing the center and size of a
 			/// detected blob.
-			[[nodiscard]] std::vector<DetectedBlob> detect(const cv::Mat& processed_frame) const;
+			[[nodiscard]] std::vector<cv::KeyPoint> detect(const cv::Mat& processed_frame) const;
 		};
+
+		void draw_detections(
+			const cv::Mat& img, cv::Mat& out_img, const std::vector<cv::KeyPoint>& detections);
 	} // namespace detect
 } // namespace analysis
