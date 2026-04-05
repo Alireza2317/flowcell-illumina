@@ -13,7 +13,10 @@ namespace analysis {
 
 			// Convert to grayscale
 			if (input.channels() == 3) {
-				cv::cvtColor(input, gray, cv::COLOR_BGR2GRAY);
+				std::vector<cv::Mat> channels;
+				cv::split(input, channels);
+				cv::max(channels[0], channels[1], gray);
+				cv::max(gray, channels[2], gray);
 			} else {
 				gray = input.clone();
 			}
