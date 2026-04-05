@@ -11,13 +11,20 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(OpenCV 4 REQUIRED)
 
 # Define a macro with the path to the project root
-add_definitions(-DPROJECT_ROOT_PATH="${CMAKE_SOURCE_DIR}")
+add_compile_definitions(PROJECT_ROOT_PATH="${CMAKE_SOURCE_DIR}")
 
 add_library(vision_lib INTERFACE)
-target_include_directories(vision_lib INTERFACE include)
+target_include_directories(vision_lib INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(vision_lib INTERFACE ${OpenCV_LIBS})
 
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+add_executable(main ${SOURCES})
 
-add_executable(main src/main.cpp src/data-generation/datagen.cpp)
 
-target_link_libraries(main PRIVATE vision_lib ${OpenCV_LIBS})
+if(MSVC)
+	target_compile_options(main PRIVATE /W4)
+else()
+	target_compile_options(main PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
+target_link_libraries(main PRIVATE vision_lib)
