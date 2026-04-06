@@ -54,9 +54,14 @@ Before running the main analysis, you need to generate a dataset using the `data
 This will create a new directory `test_data` inside the `data` folder with simulated frames and a `.txt` file, holding the blob positions and actual sequences.
 
 ### Examples of the generated frames/images:
+
+Frame 1:
 <img width="800" height="800" alt="frame_1" src="https://github.com/user-attachments/assets/d0b539f4-fa81-4f4c-b529-b26aacab161c" />
+
+Frame 2:
 <img width="800" height="800" alt="frame_2" src="https://github.com/user-attachments/assets/b862f28a-0beb-461b-8892-944cfbb67d3a" />
 
+And so on...
 
 ## Usage
 
