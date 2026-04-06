@@ -91,10 +91,16 @@ namespace datagen {
 	}
 
 	void create_and_save_dataset(
-		std::filesystem::path output_dir, const size_t num_clusters, const size_t num_cycles) {
-		std::string dir = "dataset_" + std::to_string(num_clusters) + "cl_" +
-						  std::to_string(num_cycles) + "b_" + get_timestamp();
-		output_dir = output_dir / dir;
+		std::filesystem::path output_dir,
+		const size_t num_clusters,
+		const size_t num_cycles,
+		bool create_new_dir) {
+		std::string unique_name = "dataset_" + std::to_string(num_clusters) + "cl_" +
+								  std::to_string(num_cycles) + "b_" + get_timestamp();
+		if (create_new_dir) {
+			output_dir = output_dir / unique_name;
+		}
+
 		std::filesystem::create_directories(output_dir);
 
 		auto clusters = create_dataset(num_clusters, num_cycles);
@@ -107,7 +113,7 @@ namespace datagen {
 		}
 
 		// Saving as text file
-		std::ofstream file(output_dir / (dir + ".txt"));
+		std::ofstream file(output_dir / (unique_name + ".txt"));
 
 		// Sorting the clusters by position
 		sort_clusters(clusters);

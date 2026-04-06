@@ -61,6 +61,11 @@ namespace datagen {
 	/// @param output_dir The directory where the dataset will be saved.
 	/// @param num_clusters The number of clusters in the dataset.
 	/// @param num_cycles The number of cycles for the dataset.
+	/// @param create_new_dir Wether to create a new unique dir for the dataset and place inside
+	// output_dir or put the data directly in output_dir.
 	void create_and_save_dataset(
-		std::filesystem::path output_dir, const size_t num_clusters, const size_t num_cycles);
+		std::filesystem::path output_dir,
+		const size_t num_clusters,
+		const size_t num_cycles,
+		bool create_new_dir = true);
 } // namespace datagen
