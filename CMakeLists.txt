@@ -13,23 +13,27 @@ find_package(OpenCV 4 REQUIRED)
 # Define a macro with the path to the project root
 add_compile_definitions(PROJECT_ROOT_PATH="${CMAKE_SOURCE_DIR}")
 
-add_library(vision_lib INTERFACE)
-target_include_directories(vision_lib INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_link_libraries(vision_lib INTERFACE ${OpenCV_LIBS})
 
-file(GLOB_RECURSE SOURCES "src/*.cpp")
 
+file(GLOB_RECURSE LIB_SOURCES
+"src/analysis/*.cpp"
+	"src/data-generation/*.cpp"
+	"src/io/*.cpp"
+	)
+
+
+add_library(vision_lib STATIC ${LIB_SOURCES})
+target_include_directories(vision_lib PUBLIC include)
+target_link_libraries(vision_lib PUBLIC ${OpenCV_LIBS})
 
 add_executable(datagen src/generate_test_data.cpp)
 add_executable(analyze src/run_analysis.cpp)
 
 
 if(MSVC)
-	target_compile_options(datagen PRIVATE /W4)
-	target_compile_options(analyze PRIVATE /W4)
+	target_compile_options(vision_lib INTERFACE /W4)
 else()
-	target_compile_options(datagen PRIVATE -Wall -Wextra -Wpedantic)
-	target_compile_options(analyze PRIVATE -Wall -Wextra -Wpedantic)
+	target_compile_options(vision_lib INTERFACE -Wall -Wextra -Wpedantic)
 endif()
 
 target_link_libraries(datagen PRIVATE vision_lib)
