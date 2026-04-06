@@ -18,13 +18,19 @@ target_include_directories(vision_lib INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/incl
 target_link_libraries(vision_lib INTERFACE ${OpenCV_LIBS})
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
-add_executable(main ${SOURCES})
+
+
+add_executable(datagen src/generate_test_data.cpp)
+add_executable(analyze src/run_analysis.cpp)
 
 
 if(MSVC)
-	target_compile_options(main PRIVATE /W4)
+	target_compile_options(datagen PRIVATE /W4)
+	target_compile_options(analyze PRIVATE /W4)
 else()
-	target_compile_options(main PRIVATE -Wall -Wextra -Wpedantic)
+	target_compile_options(datagen PRIVATE -Wall -Wextra -Wpedantic)
+	target_compile_options(analyze PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
-target_link_libraries(main PRIVATE vision_lib)
+target_link_libraries(datagen PRIVATE vision_lib)
+target_link_libraries(analyze PRIVATE vision_lib)

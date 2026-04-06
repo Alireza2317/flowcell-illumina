@@ -29,6 +29,6 @@ void test(const std::filesystem::path& data_dir) {
 }
 
 int main() {
-	test(ROOT_PATH / "data" / "dataset_10cl_7b_20260406_0151");
+	test(ROOT_PATH / "data" / "test_data");
 	return 0;
 }
